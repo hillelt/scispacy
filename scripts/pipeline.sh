@@ -18,13 +18,20 @@ if [[ -z "${SIZE}" ]]; then
   exit 1
 fi
 
+
 bash ./scripts/base_model.sh ${SIZE} ${OUT_PATH}/base_model
+echo "done base model"
 bash ./scripts/parser.sh ${OUT_PATH}/base_model ${OUT_PATH}/parser
+echo "done parser"
 bash ./scripts/ner.sh ${OUT_PATH}/parser/best ${OUT_PATH}/ner
+echo "done ner"
 
 cp -r ${OUT_PATH}/ner/best ${OUT_PATH}/${MODEL_NAME}
+echo "done cp"
 
 bash ./scripts/create_model_package.sh ${OUT_PATH}/${MODEL_NAME}
+echo "done package"
+
 
 echo "Build output present in ${OUT_PATH}, with the full model serialised to ${OUT_PATH}/${MODEL_NAME}."
 echo "A spacy model package has been created in ./dist."

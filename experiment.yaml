@@ -1,0 +1,33 @@
+description: scispacy model with custom ontonotes conversion
+tasks:
+- name: train_md_model_0.1_mix
+  cluster: ai2/shared-cpu-only-4x
+  spec:
+    image: im_e7qxsf8m0m74
+    resultPath: /output
+    args:
+    - /bin/bash
+    - beaker_train.sh
+
+    env:
+      SPACY_REQ_STRING: 'spacy==2.3.2'
+      ONTONOTES_PERCENT: '0.1'
+    datasetMounts:
+    - datasetId: ds_mb47cxc4us73
+      containerPath: /ontonotes
+
+- name: train_md_model_0.2_mix
+  cluster: ai2/shared-cpu-only-4x
+  spec:
+    image: im_e7qxsf8m0m74
+    resultPath: /output
+    args:
+    - /bin/bash
+    - beaker_train.sh
+
+    env:
+      SPACY_REQ_STRING: 'spacy==2.3.2'
+      ONTONOTES_PERCENT: '0.2'
+    datasetMounts:
+    - datasetId: ds_mb47cxc4us73
+      containerPath: /ontonotes
